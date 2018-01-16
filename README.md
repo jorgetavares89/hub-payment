@@ -2,6 +2,18 @@
 
 This is the Payment Online cloud solution. Responsible to list a payment methods by Restaurant and process request that's coming from Brazil and Mexico. this solution is compose of five `Java microservices` that use the `Spring Framework and Netflix OSS` as the base of everything.
 
+ ```
+  Just to curiosity, the solution was developed using the following:
+	 - Spring Boot
+	 - Spring Web 
+	 - Spring Data
+	 - Spring Aspect
+	 - Spring Zuul (Netflix OSS)
+	 - Controller advice
+	 - Docker and Docker compose
+	 - MariaDB
+ ```
+
 Below we have the list of micro services
 
  ``` 
@@ -14,23 +26,23 @@ Below we have the list of micro services
 
 ### country-gateway-ms
 * A Zuul Proxy and Filter SpringBoot Microservice responsible to redirect request coming from BR and MX and redirect for the respective service. Below follow the mapping:
- ```
+ ```yaml
    prefix: 
    	/payment
-   routes:
-	/** redirect to payment-methods-ms
-	/mx/** redirec to payment-mx-ms
-	/br/** redirect to payment-gateway-ms 
+   	routes:
+	            /**     redirect to payment-methods-ms
+	            /mx/**  redirec to payment-mx-ms
+	            /br/**  redirect to payment-gateway-ms 
 ```
 
 ### payment-gateway-ms
 * A Zuul Proxy and Filter SpringBoot Microservice responsible to redirect request coming from BR and redirect to `payment-br-ms`. Follow the mapping:
 
- ```
+ ```yaml
    prefix: 
    	/hub
-   routes:
-	/** redirect to payment-br-ms
+   	routes:
+	            /**     redirect to payment-br-ms
 ```
 
 ### payment-methods-ms
