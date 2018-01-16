@@ -134,9 +134,7 @@ It's **necessary** general the docker images of **all** projects, `country-gatew
 
 To up the docker containers by generated images , we have a `docker-compose` file on root path `(can be locale in hub-payment/docker-compose.yml)`.  Just run:  `$ docker-compose up` and the solution is coming up automatically. This command should be up the following architecture:
 
-![Hub payment POPC cloud solution V1.0](hub-payment/HubPPayment.png)
-
-
+<p align="center"><img src="https://github.com/jorgetavares89/hub-payment/blob/master/HubPPayment.png"/></p>
 
 
 
