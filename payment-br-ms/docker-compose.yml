@@ -1,0 +1,36 @@
+version: '2'
+services:
+  country-gateway:
+    image: country-gateway-ms:0.0.1
+    container_name: country-gateway-ms
+    ports:
+      - "8080:8080"
+  payment-gateway:
+    image: payment-gateway-ms:0.0.1
+    container_name: payment-gateway-ms
+    depends_on:
+      - country-gateway
+  payment-br:
+    image: payment-br-ms:0.0.1
+    container_name: payment-br-ms
+    depends_on:
+      - payment-gateway
+    ports:
+      - "7004:7001"
+    environment:
+      - DB_URL=jdbc:mariadb://payment-br-db:3306/payment-br
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - HIBERNATE_DDL_AUTO=create
+      - ENV=dev-local
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=7001
+  payment-br-db:
+    image: mariadb:latest
+    container_name: payment-br-db
+    volumes:
+      - ~/local_db_payment/:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=payment-br
+    ports:
+      - 3306:3306

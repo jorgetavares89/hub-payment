@@ -1,0 +1,32 @@
+version: '2'
+services:
+  country-gateway:
+    image: country-gateway-ms:0.0.1
+    container_name: country-gateway
+    ports:
+      - "8080:8080"
+  payment-methods-ms:
+    image: payment-methods-ms:0.0.1
+    container_name: payment-methods
+    ports:
+      - "7002:7000"
+    depends_on:
+      - payment-methods-db
+      - country-gateway
+    environment:
+      - DB_URL=jdbc:mariadb://payment-methods-db:3306/payment-methods
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - HIBERNATE_DDL_AUTO=create
+      - ENV=dev-local
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=7000
+  payment-methods-db:
+    image: mariadb:latest
+    container_name: payment-methods-db
+    volumes:
+      - ~/local_db_payment_methods/:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=payment-methods
+    ports:
+      - 3306:3306

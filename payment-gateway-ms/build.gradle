@@ -1,0 +1,72 @@
+import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
+import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+
+buildscript {
+    repositories {
+		mavenCentral()
+    }
+
+    dependencies {
+        classpath 'com.bmuschko:gradle-docker-plugin:3.1.0'
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:1.5.6.RELEASE"
+    }
+}
+
+
+repositories {
+	mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: "org.springframework.boot"
+apply plugin: 'com.bmuschko.docker-remote-api'
+
+version = '0.0.1'
+sourceCompatibility = 1.8
+
+dependencies {
+    compile group: 'org.springframework.cloud', name: 'spring-cloud-starter-zuul', version: '1.4.0.RELEASE'
+
+    testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test', version: '1.5.6.RELEASE'
+    testCompile group: 'org.spockframework', name: 'spock-spring', version: '1.1-groovy-2.4'
+    testCompile group: 'org.spockframework', name: 'spock-core', version: '1.1-groovy-2.4'
+}
+
+jar { baseName = 'payment-gateway-ms' }
+
+task createDockerfile(type: Dockerfile, dependsOn: build) {
+    outputs.upToDateWhen { false }
+    destFile = file('docker/Dockerfile')
+
+    from 'openjdk:8'
+    maintainer 'Jorge Tavares <jorge.tavares.inatel@gmail.com>'
+
+    environmentVariable('ENV', 'dev-local')
+
+    copyFile("${jar.archiveName}", '/home/')
+    copyFile("run.sh", '/home/')
+
+    defaultCommand('sh', '/home/run.sh', "/home/${jar.archiveName}")
+    
+    exposePort(8080)
+
+    doLast {
+        ant.move(file: jar.archivePath, tofile: "docker/${jar.archiveName}")
+        ant.copy(file: 'scripts/run.sh', tofile: 'docker/run.sh')
+    }
+}
+
+docker {
+    if (System.env.containsKey('DOCKER_HOST') && System.env.containsKey('DOCKER_CERT_PATH')) {
+        url = System.env.DOCKER_HOST.replace("tcp", "https")
+        certPath = new File(System.env.DOCKER_CERT_PATH)
+    }
+}
+
+task buildDockerImage(type: DockerBuildImage) {
+	dependsOn createDockerfile
+    tag = "${jar.baseName}:${project.version}"
+}

@@ -1,0 +1,9 @@
+zuul:
+  prefix: /hub
+  routes:
+    payment-br:
+      path: /**
+      url: http://payment-br-ms:8080
+ribbon:
+  eureka:
+    enabled: false

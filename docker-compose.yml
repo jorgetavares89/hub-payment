@@ -1,0 +1,78 @@
+version: '2'
+services:
+
+  country-gateway:
+    image: country-gateway-ms:0.0.1
+    container_name: country-gateway
+    ports:
+      - "8080:8080"
+  payment-gateway:
+    image: payment-gateway-ms:0.0.1
+    container_name: payment-gateway-ms
+    depends_on:
+      - country-gateway
+
+  payment-methods-ms:
+    image: payment-methods-ms:0.0.1
+    container_name: payment-methods-ms
+    ports:
+      - "7000:7000"
+    depends_on:
+      - country-gateway
+      - payment-methods-db
+    environment:
+      - DB_URL=jdbc:mariadb://payment-methods-db:3306/payment-methods
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - HIBERNATE_DDL_AUTO=create
+      - ENV=dev-local
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=7000
+  payment-methods-db:
+    image: mariadb:latest
+    container_name: payment-methods-db
+    volumes:
+      - ~/local_db_payment_method/:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=payment-methods
+    ports:
+      - 3307:3306
+
+
+  payment-br-ms:
+    image: payment-br-ms:0.0.1
+    container_name: payment-br-ms
+    ports:
+      - "7001:7000"
+    depends_on:
+      - payment-gateway
+      - payment-br-db
+    environment:
+      - DB_URL=jdbc:mariadb://payment-br-db:3306/payment-br
+      - DB_USER=root
+      - DB_PASSWORD=root
+      - HIBERNATE_DDL_AUTO=create
+      - ENV=dev-local
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=7000
+  payment-br-db:
+    image: mariadb:latest
+    container_name: payment-br-db
+    volumes:
+      - ~/local_db_payment/:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=payment-br
+    ports:
+      - 3306:3306
+
+
+  payment-mx-ms:
+    image: payment-mx-ms:0.0.1
+    container_name: payment-mx-ms
+    ports:
+      - "7002:7000"
+    depends_on:
+      - country-gateway
+    environment:
+      - ENV=dev-local
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=7000

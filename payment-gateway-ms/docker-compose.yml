@@ -1,0 +1,10 @@
+version: '2'
+services:
+  country-gateway-ms:
+    image: payment-gateway-ms:0.0.1
+    container_name: payment-gateway-ms
+    ports:
+      - "9080:8081"
+      - "7000:7000"
+    environment:
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=7000

@@ -1,0 +1,11 @@
+version: '2'
+services:
+  country-gateway-ms:
+    image: country-gateway-ms:0.0.1
+    container_name: country-gateway-ms
+    ports:
+      - "8080:8080"
+      - "7000:7000"
+    environment:
+      - SERVER_PORT=8080
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=7000

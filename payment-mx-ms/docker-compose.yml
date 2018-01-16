@@ -1,0 +1,17 @@
+version: '2'
+services:
+  country-gateway:
+    image: country-gateway-ms:0.0.1
+    container_name: country-gateway
+    ports:
+      - "8080:8080"
+  payment-mx-ms:
+    image: payment-mx-ms:0.0.1
+    container_name: payment-mx
+    depends_on:
+      - country-gateway
+    ports:
+      - "7003:7000"
+    environment:
+      - ENV=dev-local
+      - JAVA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=7000

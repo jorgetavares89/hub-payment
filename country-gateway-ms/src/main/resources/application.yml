@@ -1,0 +1,21 @@
+zuul:
+  prefix: /payment
+  routes:
+    payment-methods:
+      path: /**
+      url: http://payment-methods-ms:8080
+    payment-br:
+      path: /br/**
+      url: http://payment-gateway-ms:8080
+    payment-mx:
+      path: /mx/**
+      url: http://payment-mx-ms:8080
+    test:
+      path: /redirect/**
+      url: http://google.com
+ribbon:
+  eureka:
+    enabled: false
+# payment-methods:
+#   ribbon:
+#     listOfServers: localhost:8081
