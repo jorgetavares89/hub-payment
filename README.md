@@ -119,7 +119,7 @@ To run this application in local environment we need to :
 
 ## Clone this repository
 
-`$ git clone <repo-url>`
+`$ git clone https://github.com/jorgetavares89/hub-payment.git`
 
 ## Build Docker images
 
