@@ -5,7 +5,7 @@ This is the Payment Online cloud solution. Responsible to list a payment methods
  ```
   Just to curiosity, the solution was developed using the following:
 	 - Spring Boot
-	 - Spring Web 
+	 - Spring Web (REST)
 	 - Spring Data
 	 - Spring Aspect
 	 - Spring Zuul (Netflix OSS)
