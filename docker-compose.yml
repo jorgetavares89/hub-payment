@@ -16,7 +16,7 @@ services:
     image: payment-methods-ms:0.0.1
     container_name: payment-methods-ms
     ports:
-      - "7000:7000"
+      - "7000:7000" #just to remote debug
     depends_on:
       - country-gateway
       - payment-methods-db
@@ -43,7 +43,7 @@ services:
     image: payment-br-ms:0.0.1
     container_name: payment-br-ms
     ports:
-      - "7001:7000"
+      - "7001:7000" #just to remote debug
     depends_on:
       - payment-gateway
       - payment-br-db
@@ -70,7 +70,7 @@ services:
     image: payment-mx-ms:0.0.1
     container_name: payment-mx-ms
     ports:
-      - "7002:7000"
+      - "7002:7000" #just to remote debug
     depends_on:
       - country-gateway
     environment:
