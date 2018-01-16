@@ -46,7 +46,7 @@ Below we have the list of micro services
 ```
 
 ### payment-methods-ms
-* A Spring Boot Microservice responsible to list the payment methods by a Restaurant ID. Bellow follow a example of request and result, 
+* A Spring Boot Microservice responsible to list the payment methods by a Restaurant ID. When this application is up, the `DatabasePopulator` run and populate the payment-methods DB, creating some dummy relationship of `PaymentMethod` and `Restaurant`. Below follow a resquest and result example:
 
 Request:
 
@@ -73,7 +73,7 @@ Result:
 ```
 
 ### payment-br-ms
-* A Spring Boot Microservice responsible to process a `RequestPayment` that becomes from `/**` of `payment-gateway-ms`. Below follow a resquest and result example:
+* A Spring Boot Microservice responsible to process a `RequestPayment` that becomes from `/**` of `payment-gateway-ms`. This application has a Strategy with mock provider payments services to process the `Digital Wallet (Visa Checkout, Google, Masterpass)` and `Cred card brand (Visa,Mastercard)` requests. Below follow a resquest and result example:
 
 Request
 
