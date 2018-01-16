@@ -13,15 +13,25 @@ Below we have the list of micro services
  ```
 
 ### country-gateway-ms
-* A Zuul Proxy and Filter SpringBoot Microservice responsible to redirect request coming from BR and MX for the respective services, below follow the mapping:
+* A Zuul Proxy and Filter SpringBoot Microservice responsible to redirect request coming from BR and MX and redirect for the respective service. Below follow the mapping:
  ```
+   prefix: 
+   	/payment
+   routes:
 	/** redirect to payment-methods-ms
 	/mx/** redirec to payment-mx-ms
 	/br/** redirect to payment-gateway-ms 
 ```
 
 ### payment-gateway-ms
-* A Zuul Proxy and Filter SpringBoot Microservice responsible to redirect to the `payment-br-ms` request coming from `/br/**` of  `country-gateway-ms`  using the path `/hub/**`
+* A Zuul Proxy and Filter SpringBoot Microservice responsible to redirect request coming from BR and redirect to `payment-br-ms`. Follow the mapping:
+
+ ```
+   prefix: 
+   	/hub
+   routes:
+	/** redirect to payment-br-ms
+```
 
 ### payment-methods-ms
 * A Spring Boot Microservice responsible to list the payment methods by a Restaurant ID. Bellow follow a example of request and result, 
