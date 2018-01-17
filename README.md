@@ -159,5 +159,5 @@ To up the docker containers by generated images , we have a `docker-compose` fil
 <p align="center"><img src="https://github.com/jorgetavares89/hub-payment/blob/master/HubPPayment.png"/></p>
 
 	Note:
-	In the root app path, has a Postman collections .json exported to test the API's.
+	In the root app path, has a Postman collections .json exported to test the APIs.
 
