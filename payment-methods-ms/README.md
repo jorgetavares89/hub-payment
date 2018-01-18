@@ -22,7 +22,7 @@ To run this application in local environment we need to :
 
 ## Clone this repository
 
-`$ git clone https://jorge_tavares@bitbucket.org/jorge_tavares/payment-methods-ms.git`
+`$ git clone [repo url]`
 
 ## Build Docker image
 

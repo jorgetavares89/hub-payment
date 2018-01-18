@@ -42,7 +42,7 @@ public class ErrorResponse {
     public void setCode(int code) {
         this.code = code;
     }
-    
+
     public static class Builder {
 
         private ErrorResponse errorResponse = new ErrorResponse();
