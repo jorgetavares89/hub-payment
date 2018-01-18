@@ -1,4 +1,4 @@
-# Payment Online Cloud Solution
+# Payment Online Cloud (POC) Solution
 
 This is the Payment Online cloud solution. Responsible to list a payment methods by Restaurant and process request that's coming from Brazil and Mexico. this solution is compose of five `Java microservices` that use the `Spring Framework and Netflix OSS` as the base of everything.
 
