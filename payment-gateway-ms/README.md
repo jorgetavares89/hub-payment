@@ -17,7 +17,7 @@ To run this application in local environment we need to :
 
 ## Clone this repository
 
-`$ git clone https://jorge_tavares@bitbucket.org/jorge_tavares/country-gateway-ms.git`
+`$ git clone [repo url]`
 
 ## Build Docker image
 
