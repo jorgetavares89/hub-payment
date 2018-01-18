@@ -24,69 +24,9 @@ public abstract class CustomExceptionHandler extends ResponseEntityExceptionHand
         return new ErrorResponse.Builder()
                 .withStatus(status)
                 .withMessage(ex.getMessage())
+                .withError(ex.getClass()
+                        .getSimpleName())
                 .withCode(status.value())
                 .build();
     }
-
-    @Override
-    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
-                                                                  HttpHeaders headers, HttpStatus status, WebRequest request) {
-        List<String> errors = new ArrayList<>();
-        ex.getBindingResult().getFieldErrors()
-                .forEach(error -> errors.add(error.getField() + ": " + error.getDefaultMessage()));
-        ex.getBindingResult().getGlobalErrors()
-                .forEach(error -> errors.add(error.getObjectName() + ": " + error.getDefaultMessage()));
-        ErrorResponse errorResponse = createErrorResponse(status, errors);
-        return handleExceptionInternal(ex, errorResponse, headers, status, request);
-    }
-
-    @Override
-    protected ResponseEntity<Object> handleBindException(final BindException ex, final HttpHeaders headers, final HttpStatus status, final WebRequest request) {
-        final List<String> errors = new ArrayList<String>();
-        ex.getBindingResult().getFieldErrors()
-                .forEach(error -> errors.add(error.getField() + ": " + error.getDefaultMessage()));
-        ex.getBindingResult().getGlobalErrors()
-                .forEach(error -> errors.add(error.getObjectName() + ": " + error.getDefaultMessage()));
-        ErrorResponse errorResponse = createErrorResponse(status, errors);
-        return handleExceptionInternal(ex, errorResponse, headers, errorResponse.getStatus(), request);
-    }
-
-    @Override
-    protected ResponseEntity<Object> handleTypeMismatch(TypeMismatchException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
-        String error = ex.getValue() + " value should be of type " + ex.getRequiredType();
-        ErrorResponse errorResponse = new ErrorResponse.Builder()
-                .withStatus(status)
-                .withMessage("Invalid type")
-                .withErrors(asList(error))
-                .withCode(status.value())
-                .build();
-        return handleExceptionInternal(ex, errorResponse, headers, errorResponse.getStatus(), request);
-    }
-
-    @Override
-    protected ResponseEntity<Object> handleHttpMessageNotReadable(
-            HttpMessageNotReadableException ex,
-            HttpHeaders headers,
-            HttpStatus status,
-            WebRequest request) {
-
-        ErrorResponse errorResponse = new ErrorResponse.Builder()
-                .withStatus(status)
-                .withMessage("Invalid fields")
-                .withCode(status.value())
-                .withErrors(Stream.of(ex.getCause())
-                        .map(Throwable::getMessage)
-                        .collect(toList()))
-                .build();
-        return handleExceptionInternal(ex, errorResponse, headers, errorResponse.getStatus(), request);
-    }
-
-    private ErrorResponse createErrorResponse(HttpStatus status, List<String> errors) {
-        return new ErrorResponse.Builder()
-                .withStatus(status)
-                .withMessage("Invalid fields")
-                .withErrors(errors)
-                .withCode(status.value()).build();
-    }
-
 }
