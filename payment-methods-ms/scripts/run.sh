@@ -1,9 +1,9 @@
 #!/bin/bash
 
 echo "================== Container environment variables =================="
-if [ "$AWS_ENV" = "dev-local" ]
+if [ "$ENV" = "dev-local" ]
 then
-    echo "AWS_ENV = $AWS_ENV"
+    echo "ENV = $ENV"
     echo "DB_URL = $DB_URL"
     echo "DB_USER = $DB_USER"
     echo "DB_PASSWORD = $DB_PASSWORD"
@@ -14,7 +14,7 @@ then
                  --spring.datasource.password=$DB_PASSWORD \
 		         --spring.jpa.hibernate.ddl-auto=$HIBERNATE_DDL_AUTO
 else
-    echo "AWS_ENV = $AWS_ENV"
+    echo "ENV = $ENV"
     echo "DB_URL = $DB_URL"
     echo "DB_USER = $DB_USER"
     echo "DB_PASSWORD = $DB_PASSWORD"

@@ -9,7 +9,6 @@ public class ErrorResponse {
     private HttpStatus status;
     private String message;
     private String error;
-    private List<String> errors;
     private int code;
 
     public HttpStatus getStatus() {
@@ -43,15 +42,7 @@ public class ErrorResponse {
     public void setCode(int code) {
         this.code = code;
     }
-
-    public List<String> getErrors() {
-        return errors;
-    }
-
-    public void setErrors(List<String> errors) {
-        this.errors = errors;
-    }
-
+    
     public static class Builder {
 
         private ErrorResponse errorResponse = new ErrorResponse();
@@ -63,11 +54,6 @@ public class ErrorResponse {
 
         public Builder withMessage(String message) {
             this.errorResponse.setMessage(message);
-            return this;
-        }
-
-        public Builder withErrors(List<String> errors) {
-            this.errorResponse.setErrors(errors);
             return this;
         }
 
