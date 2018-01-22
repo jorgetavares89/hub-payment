@@ -1,0 +1,1 @@
+include 'country-gateway-ms', 'payment-gateway-ms', 'payment-methods-ms', 'payment-br-ms', 'payment-mx-ms'
