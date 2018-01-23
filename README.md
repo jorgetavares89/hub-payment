@@ -141,11 +141,11 @@ To run this application in local environment we need to :
 
 ## Clone this repository
 
-`$ git clone https://github.com/jorgetavares89/hub-payment.git`
+`$ git clone https://github.com/jorgetavares89/payment-hub.git`
 
 ## Build Docker images
 
-To build the docker image, we need to install the [https://gradle.org/install/](Gradle) or use its wrapper that can be found in the root folder of each application. All applications has a Gradle task that builds the docker image. Just go to the root application path, e.g. `$ cd hub-payment/payment-methods-ms/` and run `$ gradle buildDockerImage` and the `payment-methods-ms:0.0.1` image will be generated. To confirm, run: `$ docker images`.
+To build the docker images, we need to install the [https://gradle.org/install/](Gradle). and run `$ gradle buildDockerImage`. This command will generate all docker images from each Microservice. To check, run: `$ docker images`
 
 It is **required** to generate the docker images of **all** projects, `country-gateway-ms`, `payment-gateway-ms`, `payment-methods-ms`, `payment-br-ms` and `payment-mx-ms` **before** tyring trying to use this project.
 
