@@ -147,17 +147,18 @@ To run this application in local environment we need to :
 	Note: 
 	To execute the next step, we put the docker installed in the host machine must be executed in the admin domain (running without sudo)
 
-#### The dockerComposeUp task
+#### The dockerComposeUp gradle task
 
-  This task aims to build all solution with just once command, executing a pipe of following custom gradle tasks:
+  This task aims to build all solution with just once command `$ gradle dockerComposeUp`. Running this command, a pipe of gradle tasks will be executing, following the sequence:
+  ```
+  :dockerComposeDown
+  :cleanDockerImage 
+  :createDockerFile
+  :buildDockerImage
+  ```
+  This tasks, is executed for each microservice, generating all docker images. After that, the `dockerComposeUp` task is executed, coming up automatically all infrastructure.
   
-  dockerComposeDown
-  cleanDockerImage
-  buildDockerImage
-  
-  Of each microservice and after that, run the root dockerComposeUp task, to run this task, just use `$ gradle dockerComposeUp` and the solution is coming up automatically.
-  
-  This command should be up the following architecture:
+  When the is build script is done, should be up the following architecture:
 
 <p align="center"><img src="https://github.com/jorgetavares89/payment-hub/blob/master/HubPPayment.png"/></p>
 
