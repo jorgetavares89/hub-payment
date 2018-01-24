@@ -31,7 +31,7 @@ The micro services that compose the solution are:
    	/payment
    	routes:
 	            /**     redirect to payment-methods-ms
-	            /mx/**  redirec to payment-mx-ms
+	            /mx/**  redirect to payment-mx-ms
 	            /br/**  redirect to payment-gateway-ms 
 ```
 
