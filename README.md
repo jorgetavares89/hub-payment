@@ -160,7 +160,7 @@ To run this application in local environment we need to :
   
   When the is build script is done, should be up the following architecture:
 
-<p align="center"><img src="https://github.com/jorgetavares89/payment-hub/blob/master/HubPPayment.png"/></p>
+<p align="center"><img src="https://github.com/jorgetavares89/payment-hub/blob/master/PaymentHub.png"/></p>
 
 	Note:
 	In the root app path, has a Postman collections .json exported to test the APIs.
