@@ -135,28 +135,31 @@ Result:
 To run this application in local environment we need to :
 
  * Clone this repository.
- * Build a docker image. 
- * Run the docker-compose file.
+ * Run the `dockerComposeUp` gradle task.
  
 
 ## Clone this repository
 
 `$ git clone https://github.com/jorgetavares89/payment-hub.git`
-
-## Build Docker images
-
-To build the docker images, we need to install the [https://gradle.org/install/](Gradle). and run `$ gradle buildDockerImage`. This command will generate all docker images from each Microservice. To check, run: `$ docker images`
-
-It is **required** to generate the docker images of **all** projects, `country-gateway-ms`, `payment-gateway-ms`, `payment-methods-ms`, `payment-br-ms` and `payment-mx-ms` **before** tyring trying to use this project.
-
-	Note: 
-	The docker installed in the host machine must be executed in the admin domain (running without sudo)
 	
 ## Running the application
 
-Once you have generated the images of each application, you can get the containers up and running by using the `docker-compose` file on root path `(can be locale in hub-payment/docker-compose.yml)`.  Just run:  `$ docker-compose up` and the solution is coming up automatically. This command should be up the following architecture:
+	Note: 
+	To execute the next step, we put the docker installed in the host machine must be executed in the admin domain (running without sudo)
 
-<p align="center"><img src="https://github.com/jorgetavares89/hub-payment/blob/master/HubPPayment.png"/></p>
+#### The dockerComposeUp task
+
+  This task aims to build all solution with just once command, executing a pipe of following custom gradle tasks:
+  
+  dockerComposeDown
+  cleanDockerImage
+  buildDockerImage
+  
+  Of each microservice and after that, run the root dockerComposeUp task, to run this task, just use `$ gradle dockerComposeUp` and the solution is coming up automatically.
+  
+  This command should be up the following architecture:
+
+<p align="center"><img src="https://github.com/jorgetavares89/payment-hub/blob/master/HubPPayment.png"/></p>
 
 	Note:
 	In the root app path, has a Postman collections .json exported to test the APIs.

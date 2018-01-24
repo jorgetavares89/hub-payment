@@ -1,0 +1,8 @@
+task dockerComposeUp(type: Exec) {
+    dependsOn 'country-gateway-ms:buildDockerImage'
+    dependsOn 'payment-gateway-ms:buildDockerImage'
+    dependsOn 'payment-methods-ms:buildDockerImage'
+    dependsOn 'payment-br-ms:buildDockerImage'
+    dependsOn 'payment-mx-ms:buildDockerImage'
+    commandLine 'docker-compose', 'up'
+}

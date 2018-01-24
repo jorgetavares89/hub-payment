@@ -1,5 +1,4 @@
-import com.bmuschko.gradle.docker.tasks.image.DockerBuildImage
-import com.bmuschko.gradle.docker.tasks.image.Dockerfile
+import com.bmuschko.gradle.docker.tasks.image.*
 
 buildscript {
     repositories {
@@ -73,7 +72,25 @@ docker {
     }
 }
 
+task dockerComposeDown(type: Exec) {
+    commandLine 'docker-compose', 'down'
+}
+
+task cleanDockerImage(type: DockerRemoveImage, dependsOn: dockerComposeDown) {
+    targetImageId { buildDockerImage.tag }
+    onError { exception ->
+        println "Could not delete due error: $exception"
+    }
+}
+
 task buildDockerImage(type: DockerBuildImage) {
-	dependsOn createDockerfile
-    tag = "${jar.baseName}:${project.version}"
+    dependsOn 'createDockerfile'
+    dependsOn 'cleanDockerImage'
+    String prefixImage = "jtavares"
+    tag = "$prefixImage/$jar.baseName:$project.version"
+}
+
+task dockerComposeUp(type: Exec) {
+    dependsOn 'buildDockerImage'
+    commandLine 'docker-compose', 'up'
 }
