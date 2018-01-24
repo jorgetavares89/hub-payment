@@ -149,7 +149,7 @@ To run this application in local environment we need to :
 
 #### The dockerComposeUp gradle task
 
-  This task aims to build all solution with just once command `$ gradle dockerComposeUp`. Running this command, a pipe of gradle tasks will be executing, following the sequence:
+This task was designed to build the entire solution using just a single command $ gradle dockerComposeUp. By executing this command, a Gradle task will execute all the required tasks in a pipeline following the sequence below:
   ```
   :dockerComposeDown
   :cleanDockerImage 
