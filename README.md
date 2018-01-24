@@ -152,9 +152,9 @@ To run this application in local environment we need to :
   This task aims to build all solution with just once command, executing a pipe of following custom gradle tasks:
   
   ```
-  	- dockerComposeDown
-  	- cleanDockerImage
-  	- buildDockerImage
+  - dockerComposeDown
+  - cleanDockerImage
+  - buildDockerImage
   ```
   
   Of each microservice safe generating all docker images. After that, we should to run the root `dockerComposeUp` task, use `$ gradle dockerComposeUp` and the solution is coming up automatically.
