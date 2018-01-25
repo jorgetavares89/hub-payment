@@ -22,7 +22,7 @@ public class RestaurantService {
 
 	public RestaurantResult findById(Long id) {
         return factory.createResult(repository.findById(id)
-                .orElseThrow(() -> new NotFoundException("This restaurant does not have a payment method")));
+                .orElseThrow(() -> new NotFoundException("Restaurant not found for ["+id+"]")));
 	}
 
 	public Restaurant save(Restaurant restaurant) {
