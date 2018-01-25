@@ -31,7 +31,7 @@ The micro services that compose the solution are:
    	/payment
    	routes:
 	            /**     redirect to payment-methods-ms
-	            /mx/**  redirec to payment-mx-ms
+	            /mx/**  redirect to payment-mx-ms
 	            /br/**  redirect to payment-gateway-ms 
 ```
 
@@ -126,7 +126,7 @@ Result:
     "id": 2817310435374561510,
     "restaurantId": 2,
     "userId": 2,
-    "status": "Visa/Master Brand Successfully process BR payment"
+    "status": "Successfully process MX payment"
 }
 ```
 
@@ -149,7 +149,7 @@ To run this application in local environment we need to :
 
 #### The dockerComposeUp gradle task
 
-  This task aims to build all solution with just once command `$ gradle dockerComposeUp`. Running this command, a pipe of gradle tasks will be executing, following the sequence:
+This task was designed to build the entire solution using just a single command $ gradle dockerComposeUp. By executing this command, a Gradle task will execute all the required tasks in a pipeline following the sequence below:
   ```
   :dockerComposeDown
   :cleanDockerImage 
