@@ -126,7 +126,7 @@ Result:
     "id": 2817310435374561510,
     "restaurantId": 2,
     "userId": 2,
-    "status": "Visa/Master Brand Successfully process BR payment"
+    "status": "Successfully process MX payment"
 }
 ```
 
